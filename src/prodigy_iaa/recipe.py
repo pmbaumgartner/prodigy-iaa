@@ -67,13 +67,17 @@ def iaa_datasets(datasets: List[str], annotation_type: str, labels: List[str]):
     value_getter = VALUE_GETTERS.get(annotation_type)
     if value_getter is None:
         msg.fail("Invalid `annotation_type` passed", exits=1)
+    DB = prodigy.components.db.connect()
+    for set_id in datasets:
+        if set_id not in DB:
+            msg.fail(f"Can't find dataset '{set_id}' in database", exits=1)
     examples = datasets_to_long(datasets, dataset_id_key="_dataset_id")
 
     iaa_dispatch(examples, annotation_type, value_getter, labels, "_dataset_id")
 
 
 @prodigy.recipe(
-    "iaa.session",
+    "iaa.sessions",
     # fmt: off
     dataset=("Dataset to get examples from. Assuming annotators are captured per-example in _session_id", "positional", None, str),
     annotation_type=(ANNOTATION_TYPE_HELP, "positional", None, str),
@@ -90,6 +94,8 @@ def iaa_sessions(
         msg.fail("Invalid `annotation_type` passed", exits=1)
 
     DB = prodigy.components.db.connect()
+    if dataset not in DB:
+        msg.fail(f"Can't find dataset '{dataset}' in database", exits=1)
     examples = DB.get_dataset_examples(dataset)
     if dataset_id_key is None:
         dataset_id_key = "_session_id"
