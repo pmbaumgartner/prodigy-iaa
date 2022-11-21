@@ -28,7 +28,7 @@ Table 13 in [this paper](https://scholar.google.com/scholar?cluster=172699585740
 
 -** When there is _low agreement**_: Percent (Simple) Agreement can produce high scores.
   - Imagine a binary classification problem with a very low base rate. Annotators can often agree on the negative case, but rarely agree on the positive.
-- **When there are _highly uneven sizes of categories_**: - `AC2` will be high, `Alpha` can produce high scores.
+- **When there are _highly uneven sizes of categories_**: `AC2` will be high, `Alpha` can produce high scores.
 - **When there are _N < 20_ co-incident annotated examples**: `Alpha` can produce high scores.
   - You probably shouldn't trust _N < 100_ generally.
 -** When there are _3 or more categories_**: `AC2` can produce high scores.
