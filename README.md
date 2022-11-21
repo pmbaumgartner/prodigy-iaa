@@ -26,7 +26,7 @@ There is no single measure across all datasets to give a reasonable measurement 
 
 Table 13 in [this paper](https://scholar.google.com/scholar?cluster=17269958574032994585&hl=en&as_sdt=0,34&as_vis=1)[^4] highlights systematic issues with each metric. They are as follows:
 
-- **When there is _low agreement**_: Percent (Simple) Agreement can produce high scores.
+- **When there is _low agreement_**: Percent (Simple) Agreement can produce high scores.
   - Imagine a binary classification problem with a very low base rate. Annotators can often agree on the negative case, but rarely agree on the positive.
 - **When there are _highly uneven sizes of categories_**: `AC2` will be high, `Alpha` can produce high scores.
 - **When there are _N < 20_ co-incident annotated examples**: `Alpha` can produce high scores.
@@ -39,7 +39,8 @@ Table 13 in [this paper](https://scholar.google.com/scholar?cluster=172699585740
 
 If you want to calculate these measures in a custom script on your own data, you can use `from prodigy_iaa.measures import calculate_agreement`. See tests in `tests/test_measures.py` for an example. The docstrings for each function should indicate the expected data structures.
 
-## Footnotes
+## References
+
 
 [^1]: K. L. Gwet, “On Krippendorff’s Alpha Coefficient,” p. 16, 2015.
 [^2]: J. Lovejoy, B. R. Watson, S. Lacy, and D. Riffe, “Three Decades of Reliability in Communication Content Analyses: Reporting of Reliability Statistics and Coefficient Levels in Three Top Journals,” p. 44.
