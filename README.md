@@ -1,6 +1,6 @@
 # Prodigy - Inter-Annotator Agreement Recipes
 
-These recipes calculate Inter-Annotator Agreement measures on Prodigy data. The measures include Percent (Simple) Agreement, Krippendorff's `Alpha`, and Gwet's `AC2`. All calculations were derived using the equations in [^1]. 
+These recipes calculate Inter-Annotator Agreement measures on Prodigy data. The measures include Percent (Simple) Agreement, Krippendorff's `Alpha`, and Gwet's `AC2`. All calculations were derived using the equations in [this paper](https://agreestat.com/papers/onkrippendorffalpha_rev10052015.pdf)[^1]. 
 
 Currently this package supports IAA metrics for binary classification, multiclass classification, and multilabel (binary per label) classification. Span-based IAA measures for NER and Span Categorization will be integrated in the future.
 
@@ -26,12 +26,12 @@ There is no single measure across all datasets to give a reasonable measurement 
 
 Table 13 in [this paper](https://scholar.google.com/scholar?cluster=17269958574032994585&hl=en&as_sdt=0,34&as_vis=1)[^4] highlights systematic issues with each metric. They are as follows:
 
-- When there is _low agreement_: Percent (Simple) Agreement can produce high scores.
+-** When there is _low agreement**_: Percent (Simple) Agreement can produce high scores.
   - Imagine a binary classification problem with a very low base rate. Annotators can often agree on the negative case, but rarely agree on the positive.
-- When there are _highly uneven sizes of categories_: - `AC2` will be high, `Alpha` can produce high scores.
-- When there are _N < 20_ co-incident annotated examples: `Alpha` can produce high scores.
+- **When there are _highly uneven sizes of categories_**: - `AC2` will be high, `Alpha` can produce high scores.
+- **When there are _N < 20_ co-incident annotated examples**: `Alpha` can produce high scores.
   - You probably shouldn't trust _N < 100_ generally.
-- When there are _3 or more categories_: `AC2` can produce high scores.
+-** When there are _3 or more categories_**: `AC2` can produce high scores.
 
 **Summary**: Use simple agreement and `Alpha`. If simple agreement is high, and `Alpha` is low, verify with `AC2`[^3]. 
 
