@@ -13,8 +13,16 @@ def render_descriptives(iaa_stats):
             "Examples",
             iaa_stats["n_examples"],
         ),
+        (
+            "Categories",
+            iaa_stats["n_categories"],
+        ),
         ("Co-Incident Examples*", iaa_stats["n_coincident_examples"]),
         ("Single Annotation Examples", iaa_stats["n_single_annotation"]),
+        (
+            "Annotators",
+            iaa_stats["n_annotators"],
+        ),
         (
             "Avg. Annotations per Example",
             _format_number(iaa_stats["avg_raters_per_example"], 2),

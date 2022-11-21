@@ -48,7 +48,7 @@ def calculate_agreement(
     raters_per_example = ri = [sum(example.values()) for example in agreement_table]
     categories = list(agreement_table[0].keys())
     n_annotators = len(reliability_matrix[0])
-
+    n_categories = q = len(categories)
     # Krippendorff's Alpha percent expected (PE) + percent agreement (PA)
     #   uses only rows with more than 1 rater
     # AC1 uses full agreement table for PE
@@ -119,7 +119,7 @@ def calculate_agreement(
         ac_pi_k[category] = cat_sums / n_a
 
     tw = sum(weighting(k, l) for k, l in product(categories, categories))
-    ac_pe = (tw / (len(categories) * (len(categories) - 1))) * (
+    ac_pe = (tw / (q * (q- 1))) * (
         sum(ac_pi_k[k] * (1 - ac_pi_k[k]) for k in ac_pi_k)
     )
     percent_agreement = ac_pa
@@ -129,6 +129,7 @@ def calculate_agreement(
         "percent_agreement": percent_agreement,
         "kripp_alpha": kripp_alpha,
         "ac2": ac2,
+        "n_categories": n_categories,
         "n_annotators": n_annotators,
         "n_examples": n_a,
         "n_coincident_examples": n_c,

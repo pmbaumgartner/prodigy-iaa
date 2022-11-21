@@ -1,15 +1,44 @@
-# Prodigy - Inter-Annotator Agreement Recipes
+# ✨ Prodigy - 🤝 Inter-Annotator Agreement Recipes 
 
-These recipes calculate Inter-Annotator Agreement measures on Prodigy data. The measures include Percent (Simple) Agreement, Krippendorff's `Alpha`, and Gwet's `AC2`. All calculations were derived using the equations in [this paper](https://agreestat.com/papers/onkrippendorffalpha_rev10052015.pdf)[^1]. 
+These recipes calculate [Inter-Annotator Agreement](https://en.wikipedia.org/wiki/Inter-rater_reliability) (aka Inter-Rater Reliability) measures on Prodigy data. The measures include Percent (Simple) Agreement, Krippendorff's `Alpha`, and Gwet's `AC2`. All calculations were derived using the equations in [this paper](https://agreestat.com/papers/onkrippendorffalpha_rev10052015.pdf)[^1], and this includes tests to match the values given on the datasets referenced in that paper. 
 
 Currently this package supports IAA metrics for binary classification, multiclass classification, and multilabel (binary per label) classification. Span-based IAA measures for NER and Span Categorization will be integrated in the future.
 
-Recipes depend the source data structure. 
+Recipes depend the source data structure:
 - `iaa.datsets` will calculate measures assuming you have multiple datasets in prodigy, one dataset per annotator
 - `iaa.sessions` will calculate measures assuming you have multiple annotators, identified typically by `_session_id`, in a single dataset
 - `iaa.jsonl` operates the same as `iaa.sessions`, but on a file exported to JSONL with `prodigy db-out`.
 
-Each recipe is documented, so get details on arguments with `prodigy <recipe> --help`
+ℹ️ **Get details on each recipe's arguments with `prodigy <recipe> --help`**
+
+# Example
+
+Calculates agreement using dataset `my-dataset`, which is a `multiclass` problem -- meaning it's data is generated using the `choice` interface, exclusive choices, storing choices in the "accept" key. In this example, there are 5 total examples, 4 of them have co-incident annotations (i.e. overlap), and 3 unique annotators.
+
+```
+$ prodigy iaa.sessions my-dataset multiclass
+
+ℹ Annotation Statistics
+
+Attribute                      Value
+----------------------------   -----
+Examples                           5
+Categories                         3
+Co-Incident Examples*              4
+Single Annotation Examples         1
+Annotators                         3
+Avg. Annotations per Example    2.60
+
+* (>1 annotation)
+
+ℹ Agreement Statistics
+
+Statistic                     Value
+--------------------------   ------
+Percent (Simple) Agreement   0.4167
+Krippendorff's Alpha         0.1809
+Gwet's AC2                   0.1640
+```
 
 ## Validations & Practical Use
 
@@ -20,9 +49,10 @@ All recipes depend on examples being hashed uniquely and stored under `_task_has
 
 If any validations fail, or your data is weird in some way, `iaa.jsonl` will be the recipe you want. Export your data, identify any issues and remedy them, and then calculate your measures on the cleaned exported data.
 
+
 ## Theory
 
-There is no single measure across all datasets to give a reasonable measurement of agreement - often times the measures are conditional on qualities of the data. The metrics here have nice properties that make them flexible to various annotation situations: they can handle missing values (i.e. incomplete overlap), scale to any number of annotators, scale to any number of categories, and can be customized with custom weighting functions. In addition, the choice of metrics available within this package follow the recommendations in the literature[^2][^3], plus theoretical analysis[^4] demonstrating when certain metrics might be most useful.
+There is no single measure across all datasets to give a reasonable measurement of agreement - often times the measures are conditional on qualities of the data. The metrics here have nice properties that make them flexible to various annotation situations: they can handle missing values (i.e. incomplete overlap), scale to any number of annotators, scale to any number of categories, and can be customized with your own weighting functions. In addition, the choice of metrics available within this package follow the recommendations in the literature[^2][^3], plus theoretical analysis[^4] demonstrating when certain metrics might be most useful.
 
 Table 13 in [this paper](https://scholar.google.com/scholar?cluster=17269958574032994585&hl=en&as_sdt=0,34&as_vis=1)[^4] highlights systematic issues with each metric. They are as follows:
 
@@ -35,9 +65,9 @@ Table 13 in [this paper](https://scholar.google.com/scholar?cluster=172699585740
 
 **Summary**: Use simple agreement and `Alpha`. If simple agreement is high, and `Alpha` is low, verify with `AC2`[^3]. 
 
-## Use Outside Prodigy
+## Use Outside Prodigy / Other Use-Cases
 
-If you want to calculate these measures in a custom script on your own data, you can use `from prodigy_iaa.measures import calculate_agreement`. See tests in `tests/test_measures.py` for an example. The docstrings for each function should indicate the expected data structures.
+If you want to calculate these measures in a custom script on your own data, you can use `from prodigy_iaa.measures import calculate_agreement`. See tests in `tests/test_measures.py` for an example. The docstrings for each function should indicate the expected data structures. You could also use this, for example, to print out some nice output during an `update` callback and get annotation statistics as each user submits examples.
 
 ## References
 
