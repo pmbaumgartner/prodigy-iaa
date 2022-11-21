@@ -1,4 +1,4 @@
-# ✨ Prodigy - 🤝 Inter-Annotator Agreement Recipes 
+# ✨ Prodigy - Inter-Annotator Agreement Recipes 🤝
 
 These recipes calculate [Inter-Annotator Agreement](https://en.wikipedia.org/wiki/Inter-rater_reliability) (aka Inter-Rater Reliability) measures for [Prodigy](https://prodi.gy/). The measures include Percent (Simple) Agreement, Krippendorff's `Alpha`, and Gwet's `AC2`. All calculations were derived using the equations in [this paper](https://agreestat.com/papers/onkrippendorffalpha_rev10052015.pdf)[^1], and this includes tests to match the values given on the datasets referenced in that paper. 
 
