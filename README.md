@@ -4,6 +4,10 @@ These recipes calculate [Inter-Annotator Agreement](https://en.wikipedia.org/wik
 
 Currently this package supports IAA metrics for binary classification, multiclass classification, and multilabel (binary per label) classification. Span-based IAA measures for NER and Span Categorization will be integrated in the future.
 
+Note that you can also use the measures included here w/o prodigy, see section on [other use cases](#other-use-cases--use-outside-prodigy).
+
+## Recipes
+
 Recipes depend the source data structure:
 - `iaa.datsets` will calculate measures assuming you have multiple datasets in prodigy, one dataset per annotator
 - `iaa.sessions` will calculate measures assuming you have multiple annotators, identified typically by `_session_id`, in a single dataset
@@ -11,7 +15,7 @@ Recipes depend the source data structure:
 
 ℹ️ **Get details on each recipe's arguments with `prodigy <recipe> --help`**
 
-# Example
+## Example
 
 Calculates agreement using dataset `my-dataset`, which is a `multiclass` problem -- meaning it's data is generated using the `choice` interface, exclusive choices, storing choices in the "accept" key. In this example, there are 5 total examples, 4 of them have co-incident annotations (i.e. overlap), and 3 unique annotators.
 
@@ -65,7 +69,7 @@ Table 13 in [this paper](https://scholar.google.com/scholar?cluster=172699585740
 
 **Summary**: Use simple agreement and `Alpha`. If simple agreement is high, and `Alpha` is low, verify with `AC2`[^3]. 
 
-## Use Outside Prodigy / Other Use-Cases
+## Other Use-Cases / Use Outside Prodigy
 
 If you want to calculate these measures in a custom script on your own data, you can use `from prodigy_iaa.measures import calculate_agreement`. See tests in `tests/test_measures.py` for an example. The docstrings for each function should indicate the expected data structures. You could also use this, for example, to print out some nice output during an `update` callback and get annotation statistics as each user submits examples.
 
