@@ -6,6 +6,21 @@ import srsly
 from prodigy.util import set_hashes
 
 
+from prodigy_iaa import iaa_jsonl
+
+
+def prodigy_installed():
+    try:
+        import prodigy
+
+        return True
+    except ImportError:
+        return False
+
+
+PRODIGY_INSTALLED = prodigy_installed()
+
+
 def binary_data():
     binary = [
         [1.0, 0.0, 1.0],
@@ -168,21 +183,27 @@ def multilabel_data_prodigy_json(tmp_path):
     yield path
 
 
-from prodigy_iaa import iaa_jsonl
-
-
+@pytest.mark.skipif(
+    not PRODIGY_INSTALLED, reason="Prodigy not installed. Install locally and run test."
+)
 def test_jsonl_binary(binary_data_prodigy_json):
     # Note that since we use the function these args are required, even though
     # they are optional, because PLAC is doing some CLI magic
     iaa_jsonl(binary_data_prodigy_json, "binary", [], None)
 
 
+@pytest.mark.skipif(
+    not PRODIGY_INSTALLED, reason="Prodigy not installed. Install locally and run test."
+)
 def test_jsonl_multiclass(multiclass_data_prodigy_json):
     # Note that since we use the function these args are required, even though
     # they are optional, because PLAC is doing some CLI magic
     iaa_jsonl(multiclass_data_prodigy_json, "multiclass", [], None)
 
 
+@pytest.mark.skipif(
+    not PRODIGY_INSTALLED, reason="Prodigy not installed. Install locally and run test."
+)
 def test_jsonl_multilabel(multilabel_data_prodigy_json):
     """Requires knowing that there are 4 labels we want to do this for."""
     iaa_jsonl(

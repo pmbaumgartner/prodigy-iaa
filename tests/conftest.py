@@ -4,18 +4,6 @@ from io import StringIO
 import pytest
 
 
-def prodigy_installed():
-    try:
-        import prodigy
-
-        return True
-    except ImportError:
-        return False
-
-
-PRODIGY_INSTALLED = prodigy_installed()
-
-
 def df_to_reliability(df):
     """Converts a DataFrame to a list of lists, where missing values
     are replaced with `None`."""
