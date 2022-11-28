@@ -51,23 +51,23 @@ All recipes depend on examples being hashed uniquely and stored under `_task_has
 - Checks if `label` is the same for all examples
 - Checks that each annotator has not double-annotated the same `_task_hash`
 
-If any validations fail, or your data is weird in some way, `iaa.jsonl` will be the recipe you want. Export your data, identify any issues and remedy them, and then calculate your measures on the cleaned exported data.
+**If any validations fail, or your data is unique in some way, `iaa.jsonl` is the recipe you want.** Export your data, identify any issues and remedy them, and then calculate your measures on the cleaned exported data.
 
 
 ## Theory
 
-There is no single measure across all datasets to give a reasonable measurement of agreement - often times the measures are conditional on qualities of the data. The metrics here have nice properties that make them flexible to various annotation situations: they can handle missing values (i.e. incomplete overlap), scale to any number of annotators, scale to any number of categories, and can be customized with your own weighting functions. In addition, the choice of metrics available within this package follow the recommendations in the literature[^2][^3], plus theoretical analysis[^4] demonstrating when certain metrics might be most useful.
+There is no single measure across all datasets to give a reasonable measurement of agreement - often times the measures are conditional on qualities of the data. The metrics included in these recipes have nice properties that make them flexible to various annotation situations: they can handle missing values (i.e. incomplete overlap), scale to any number of annotators, scale to any number of categories, and can be customized with your own weighting functions. In addition, the choice of metrics available within this package follow the recommendations in the literature[^2][^3], plus theoretical analysis[^4] demonstrating when certain metrics might be most useful.
 
 Table 13 in [this paper](https://scholar.google.com/scholar?cluster=17269958574032994585&hl=en&as_sdt=0,34&as_vis=1)[^4] highlights systematic issues with each metric. They are as follows:
 
 - **When there is _low agreement_**: Percent (Simple) Agreement can produce high scores.
   - Imagine a binary classification problem with a very low base rate. Annotators can often agree on the negative case, but rarely agree on the positive.
-- **When there are _highly uneven sizes of categories_**: `AC2` will be high, `Alpha` can produce high scores.
+- **When there are _highly uneven sizes of categories_**: `AC2` can produce low scores, `Alpha` can produce high scores.
 - **When there are _N < 20_ co-incident annotated examples**: `Alpha` can produce high scores.
   - You probably shouldn't trust _N < 100_ generally.
 - **When there are _3 or more categories_**: `AC2` can produce high scores.
 
-**Summary**: Use simple agreement and `Alpha`. If simple agreement is high, and `Alpha` is low, verify with `AC2`[^3]. 
+**Summary**: Use simple agreement and `Alpha`. If simple agreement is high, and `Alpha` is low, verify with `AC2`[^3]. In general these numbers correlate, if you're getting contradictory or unclear information increase the number of examples and explore your data.
 
 ## Other Use-Cases / Use Outside Prodigy
 
