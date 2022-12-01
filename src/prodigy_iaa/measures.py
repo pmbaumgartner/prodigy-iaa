@@ -28,7 +28,7 @@ def identity_weighting(k, l) -> float:
 
     As an example of how you might want to use a different function, imagine
     'Good' and 'Great' indicate some agreement."""
-    return int(k == l)
+    return float(k == l)
 
 
 def calculate_agreement(
@@ -40,7 +40,7 @@ def calculate_agreement(
     a few exceptions to distinguish variables per metric.
 
     Input is an (N x A) reliability matrix, where N is the number
-    of unique examples and A is the number of unique annotators
+    of unique examples, A is the number of unique annotators,
     and the value is the annotation given by annotator A to example N
     (or None if not annotated)
     """
@@ -119,9 +119,7 @@ def calculate_agreement(
         ac_pi_k[category] = cat_sums / n_a
 
     tw = sum(weighting(k, l) for k, l in product(categories, categories))
-    ac_pe = (tw / (q * (q- 1))) * (
-        sum(ac_pi_k[k] * (1 - ac_pi_k[k]) for k in ac_pi_k)
-    )
+    ac_pe = (tw / (q * (q - 1))) * (sum(ac_pi_k[k] * (1 - ac_pi_k[k]) for k in ac_pi_k))
     percent_agreement = ac_pa
     kripp_alpha = (kripp_pa - kripp_pe) / (1 - kripp_pe)
     ac2 = (ac_pa - ac_pe) / (1 - ac_pe)

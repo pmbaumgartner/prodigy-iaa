@@ -1,6 +1,8 @@
-from io import StringIO
-import pandas as pd
+"""Tests from examples in:
 
+K. L. Gwet, “On Krippendorff’s Alpha Coefficient,” p. 16, 2015.
+https://agreestat.com/papers/onkrippendorffalpha_rev10052015.pdf
+"""
 import pytest
 
 from prodigy_iaa.measures import calculate_agreement

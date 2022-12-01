@@ -71,8 +71,16 @@ Table 13 in [this paper](https://scholar.google.com/scholar?cluster=172699585740
 
 ## Other Use-Cases / Use Outside Prodigy
 
-If you want to calculate these measures in a custom script on your own data, you can use `from prodigy_iaa.measures import calculate_agreement`. See tests in `tests/test_measures.py` for an example. The docstrings for each function should indicate the expected data structures. You could also use this, for example, to print out some nice output during an `update` callback and get annotation statistics as each user submits examples.
+If you want to calculate these measures in a custom script on your own data, you can use `from prodigy_iaa.measures import calculate_agreement`. See tests in `tests/test_measures.py` for an example. The docstrings for each function should indicate the expected data structures.
 
+You could also use this, for example, to print out some nice output during an `update` callback and get annotation statistics as each user submits examples.
+
+If you want to calcualte more precise statistics, e.g. comparing two annotators pairwise, you could write a script to do that as well with these existing functions.
+
+
+## Tests
+
+Tests require a working version of `prodigy`, so they are not run in CI and must be run locally. 
 ## References
 
 
