@@ -4,12 +4,12 @@ These recipes calculate [Inter-Annotator Agreement](https://en.wikipedia.org/wik
 
 Currently this package supports IAA metrics for binary classification, multiclass classification, and multilabel (binary per label) classification. Span-based IAA measures for NER and Span Categorization will be integrated in the future.
 
-Note that you can also use the measures included here w/o prodigy, see section on [other use cases](#other-use-cases--use-outside-prodigy).
+Note that you can also use the measures included here w/o directly interfacing with Prodigy, see section on [other use cases](#other-use-cases--use-outside-prodigy).
 
 ## Recipes
 
 Recipes depend the source data structure:
-- `iaa.datsets` will calculate measures assuming you have multiple datasets in prodigy, one dataset per annotator
+- `iaa.datasets` will calculate measures assuming you have multiple datasets in prodigy, one dataset per annotator
 - `iaa.sessions` will calculate measures assuming you have multiple annotators, identified typically by `_session_id`, in a single dataset
 - `iaa.jsonl` operates the same as `iaa.sessions`, but on a file exported to JSONL with `prodigy db-out`.
 
@@ -17,7 +17,7 @@ Recipes depend the source data structure:
 
 ## Example
 
-Calculates agreement using dataset `my-dataset`, which is a `multiclass` problem -- meaning it's data is generated using the `choice` interface, exclusive choices, storing choices in the "accept" key. In this example, there are 5 total examples, 4 of them have co-incident annotations (i.e. overlap), and 3 unique annotators.
+In this toy example, the command calculates agreement using dataset `my-dataset`, which is a `multiclass` problem -- meaning it's data is generated using the `choice` interface, exclusive choices, storing choices in the "accept" key. In this example, there are 5 total examples, 4 of them have co-incident annotations (i.e. any overlap), and 3 unique annotators.
 
 ```
 $ prodigy iaa.sessions my-dataset multiclass
