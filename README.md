@@ -6,6 +6,20 @@ Currently this package supports IAA metrics for binary classification, multiclas
 
 Note that you can also use the measures included here w/o directly interfacing with Prodigy, see section on [other use cases](#other-use-cases--use-outside-prodigy).
 
+**Install**
+
+```
+pip install prodigy-iaa
+```
+
+For dev
+
+```
+pip install git+https://github.com/pmbaumgartner/prodigy-iaa
+```
+
+This package uses [entry points](https://prodi.gy/docs/install#entry-points) so you should just be able to install and run the commands below.
+
 ## Recipes
 
 Recipes depend the source data structure:
