@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "prodigy-iaa"
-version = "0.1.0"
+version = "0.1.1"
 description = ""
 authors = ["Peter Baumgartner <5107405+pmbaumgartner@users.noreply.github.com>"]
 readme = "README.md"

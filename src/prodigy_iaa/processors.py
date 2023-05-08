@@ -52,7 +52,11 @@ def get_answer(example) -> Optional[str]:
 
 def get_choice(example) -> Optional[str]:
     if example["answer"] == "accept":
-        return example["accept"][0]
+        try:
+            # They could accept but have no choice
+            return example["accept"][0]
+        except IndexError:
+            return None
     else:
         return None
 
